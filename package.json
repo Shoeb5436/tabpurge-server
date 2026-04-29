@@ -2,16 +2,17 @@
   "name": "tabpurge-server",
   "version": "1.0.0",
   "description": "TabPurge Analytics Server with Authentication",
-  "main": "server-with-auth.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server-with-auth.js",
-    "dev": "nodemon server-with-auth.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.20.5",
     "cors": "^2.8.6",
     "express": "^4.18.2",
-    "express-session": "^1.19.0"
+    "express-session": "^1.19.0",
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
