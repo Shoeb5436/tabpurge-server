@@ -277,7 +277,7 @@ app.get('/api/analytics/dashboard', (req, res) => {
         const totalTabs = tabsResult?.total_tabs || 0;
         stats.total_tabs_purged = totalTabs;
         
-        console.log(`📊 Dashboard: Total tabs purged = ${totalTabs}`);
+        //console.log(`📊 Dashboard: Total tabs purged = ${totalTabs}`);
         
         // Get total events
         db.get(`SELECT COUNT(*) as events FROM events`, (err4, events) => {
@@ -413,11 +413,6 @@ const startServer = (port) => {
     console.log('========================================');
     console.log('🚀 TabPurge Analytics Server Running');
     console.log(`📍 http://localhost:${port}`);
-    console.log(`📊 Dashboard: http://localhost:${port}/dashboard.html`);
-    console.log(`🔍 Debug: http://localhost:${port}/api/db/summary`);
-    console.log(`📋 Raw Users: http://localhost:${port}/api/analytics/raw/users`);
-    console.log('========================================');
-    
     // Initial refresh
     refreshDailyStats();
   }).on('error', (err) => {

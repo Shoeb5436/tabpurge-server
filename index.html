@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabPurge - Close Everything. Lose Nothing.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #8b5cf6;
+      border-radius: 4px;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 16px 32px;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, #8b5cf6, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #8b5cf6;
+    }
+
+    .install-btn {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .install-btn:hover {
+      transform: scale(0.98);
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: white !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.2);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 14px;
+      color: #c084fc;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #8b5cf6, #c084fc, #f093fb);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #a0a0a0;
+      margin-bottom: 32px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      padding: 14px 32px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: scale(0.98);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 14px 32px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: 80px 20px;
+      background: #0f0f0f;
+    }
+
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: #8b5cf6;
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: #c084fc;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: #a0a0a0;
+      font-size: 14px;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 20px;
+      background: #0a0a0a;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: #a0a0a0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #8b5cf6;
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: #a0a0a0;
+      font-size: 14px;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      padding: 80px 20px;
+      background: #0f0f0f;
+    }
+
+    .steps {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      min-width: 200px;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: #a0a0a0;
+      font-size: 14px;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 80px 20px;
+      background: #0a0a0a;
+    }
+
+    .testimonials-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .testimonial-text {
+      font-size: 14px;
+      color: #d0d0d0;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #8b5cf6, #c084fc);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .testimonial-title {
+      font-size: 12px;
+      color: #8b5cf6;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: #a0a0a0;
+      margin-bottom: 32px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #050505;
+      padding: 60px 20px 30px;
+      border-top: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo span {
+      background: linear-gradient(135deg, #8b5cf6, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .footer-about p {
+      color: #a0a0a0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-links h4 {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #a0a0a0;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #8b5cf6;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #a0a0a0;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 40px;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="logo">
+        🧹 <span>TabPurge</span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#stats">Stats</a>
+        <a href="https://chrome.google.com/webstore" class="install-btn">Install Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">✨ Launched 2025 • 10,000+ Users</div>
+      <h1>
+        Close Everything.<br>
+        <span class="gradient-text">Lose Nothing.</span>
+      </h1>
+      <p>One click to save all your tabs, free up RAM, and restore them anytime. The ultimate tab manager for Chrome.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">🧹 Install TabPurge Free</a>
+        <a href="#demo" class="btn-secondary">▶ Watch Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section" id="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">10K+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2.5M+</div>
+        <div class="stat-label">Tabs Purged</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">240GB+</div>
+        <div class="stat-label">Memory Saved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4.9⭐</div>
+        <div class="stat-label">User Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <h2>Everything you need to <span class="gradient-text">master your tabs</span></h2>
+      <p>Powerful features to help you stay organized and boost productivity</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🗑️</div>
+        <h3>One-Click Purge</h3>
+        <p>Save all open tabs and close them instantly. Free up memory in seconds.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💾</div>
+        <h3>Instant Restore</h3>
+        <p>Restore any saved session with one click. All tabs come back exactly as they were.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Smart Groups</h3>
+        <p>Automatically categorize your tabs into Work, Learning, Entertainment, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⏰</div>
+        <h3>Smart Reminders</h3>
+        <p>Set daily reminders to keep your tab habit in check.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Analytics Dashboard</h3>
+        <p>Track your tab purging habits and see how much time and memory you've saved.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy First</h3>
+        <p>Your data stays on your device. No tracking, no cloud uploads.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-header">
+      <h2>How <span class="gradient-text">TabPurge</span> Works</h2>
+      <p>Three simple steps to a cleaner browser</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Click Purge</h3>
+        <p>Click the TabPurge icon and hit "Purge All Tabs"</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Save Session</h3>
+        <p>Name your session. All tabs are saved locally.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Restore Anytime</h3>
+        <p>Open TabPurge and restore any saved session instantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-header">
+      <h2>Loved by <span class="gradient-text">10,000+ users</span></h2>
+      <p>Don't just take our word for it</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-text">
+          "TabPurge saved my sanity! I used to have 50+ tabs open constantly. Now I can save and restore sessions instantly."
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SG</div>
+          <div>
+            <div class="testimonial-name">Sarah Gupta</div>
+            <div class="testimonial-title">Product Manager</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-text">
+          "The smart grouping feature is genius. It automatically organizes my tabs by category. Huge time saver!"
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">RK</div>
+          <div>
+            <div class="testimonial-name">Rajesh Kumar</div>
+            <div class="testimonial-title">Software Engineer</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-text">
+          "Best Chrome extension I've ever used. And it's completely free! The analytics dashboard is a nice bonus."
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PM</div>
+          <div>
+            <div class="testimonial-name">Priya Mehta</div>
+            <div class="testimonial-title">Freelancer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <h2>Ready to <span class="gradient-text">purge your tabs</span>?</h2>
+    <p>Join thousands of users who have reclaimed their browser sanity.</p>
+    <a href="#" class="btn-primary" style="font-size: 18px; padding: 16px 40px;">🧹 Install TabPurge Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">🧹 <span>TabPurge</span></div>
+        <p>Close everything. Lose nothing.<br>The ultimate tab manager for Chrome.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#">Pricing (Free)</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <a href="#">Help Center</a>
+        <a href="#">API Docs</a>
+        <a href="#">Report Issue</a>
+        <a href="#">Feature Request</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TabPurge. All rights reserved. Made with 🧹 for a cleaner web.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Animate stats on scroll
+    const observerOptions = {
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stats = entry.target.querySelectorAll('.stat-number');
+          stats.forEach(stat => {
+            const final = stat.innerText;
+            stat.innerText = '0';
+            let current = 0;
+            const target = parseInt(final.replace(/[^0-9]/g, ''));
+            const increment = target / 50;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= target) {
+                stat.innerText = final;
+                clearInterval(timer);
+              } else {
+                if (target >= 1000) {
+                  stat.innerText = Math.floor(current).toLocaleString() + '+';
+                } else {
+                  stat.innerText = Math.floor(current);
+                }
+              }
+            }, 30);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+  </script>
+</body>
+</html>
