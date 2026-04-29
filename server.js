@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -14,12 +15,11 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // Database setup
-//const db = new sqlite3.Database('tabpurge_analytics.db');
-// Use persistent directory on Fly.io
-const DATA_DIR = process.env.FLY_VOLUME_MOUNT || process.env.FLY_MOUNT_DIR || process.cwd();
+// Use Railway's persistent storage
+const DATA_DIR = process.env.RAILWAY_VOLUME_MOUNT || process.cwd();
 const DB_PATH = path.join(DATA_DIR, 'tabpurge_analytics.db');
 
-console.log(`📁 Database path: ${DB_PATH}`);
+console.log(`📁 Database location: ${DB_PATH}`);
 
 // Use this for database connection instead of just 'tabpurge_analytics.db'
 const db = new sqlite3.Database(DB_PATH);

@@ -4,8 +4,3 @@ npm-debug.log
 .gitignore
 README.md
 .env
-*.db
-*.db-journal
-.DS_Store
-*.log
-*~
